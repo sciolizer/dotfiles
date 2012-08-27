@@ -88,3 +88,7 @@ export PATH=$HOME/bin:$PATH
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 export EDITOR=vim
+
+# Exclamation mark on non-true return codes.
+RETURN_CODE=%(?.."%{${fg[red]}%}"[!]"%{${fg[default]}%}" )
+export RPS1=${RETURN_CODE}''${RPS1}
