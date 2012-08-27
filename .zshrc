@@ -83,3 +83,8 @@ export RUBY_GC_MALLOC_LIMIT=79000000
 
 # disable auto correction
 unsetopt correct_all
+
+export PATH=$HOME/bin:$PATH
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+export EDITOR=vim
