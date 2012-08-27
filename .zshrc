@@ -92,3 +92,8 @@ export EDITOR=vim
 # Exclamation mark on non-true return codes.
 RETURN_CODE=%(?.."%{${fg[red]}%}"[!]"%{${fg[default]}%}" )
 export RPS1=${RETURN_CODE}''${RPS1}
+
+# git-escape-magic: https://github.com/knu/zsh-git-escape-magic
+fpath=($HOME/Downloads/zsh-git-escape-magic $fpath)
+autoload -Uz git-escape-magic
+git-escape-magic
