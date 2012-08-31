@@ -25,14 +25,18 @@ import XMonad.Layout.ResizableTile
 import XMonad.ManageHook
 import XMonad.Util.NamedScratchpad
 
+import Control.Applicative
+import Control.Monad
+import Data.Maybe
+
 scratchpads = [
     NS "notes" "gvim --role notes ~/notes.txt" (role =? "notes") nonFloating
   , NS "sqldeveloper" "sqldeveloper" (className =? "oracle-ide-boot-Launcher") nonFloating
   , NS "eclipse" "eclipse" (className =? "EPP PHP Package") nonFloating
   , NS "visualvm" "visualvm" (name =? "VisualVM 1.2.1") nonFloating
   , NS "hipchat" "/opt/HipChat/bin/HipChat" (className =? "HipChat") nonFloating
-  , NS "intellij" "idea.sh" (name `endsWith` "IntelliJ IDEA 9.0.3") nonFloating
-  , NS "phpstorm" "phpstorm.sh" (name `endsWith` "JetBrains PhpStorm 1.0.1") nonFloating
+  , NS "rubymine" "mine" (name `endsWith` "JetBrains RubyMine 4.5.2") nonFloating
+  , NS "flowdock" "flowdock.sh" (name `endsWith` "Flowdock") nonFloating
   , NS "unequal" "/usr/games/unequal" (name =? "Unequal") nonFloating
   ] where role = stringProperty "WM_WINDOW_ROLE"
           name = stringProperty "WM_NAME"
@@ -44,7 +48,7 @@ endsWith q s = q >>= \x -> return (s `isSuffixOf` x)
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
 --
-myTerminal      = "gnome-terminal --hide-menubar"
+myTerminal      = "konsole"
 
 -- Width of the window border in pixels.
 --
@@ -176,10 +180,10 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
     , ((modMask .|. controlMask .|. shiftMask, xK_n), namedScratchpadAction scratchpads "notes")
     , ((modMask .|. controlMask .|. shiftMask, xK_s), namedScratchpadAction scratchpads "sqldeveloper")
-    , ((modMask .|. controlMask .|. shiftMask, xK_e), namedScratchpadAction scratchpads "phpstorm")
+    , ((modMask .|. controlMask .|. shiftMask, xK_f), namedScratchpadAction scratchpads "flowdock")
     , ((modMask .|. controlMask .|. shiftMask, xK_v), namedScratchpadAction scratchpads "visualvm")
     , ((modMask .|. controlMask .|. shiftMask, xK_c), namedScratchpadAction scratchpads "hipchat")
-    , ((modMask .|. controlMask .|. shiftMask, xK_i), namedScratchpadAction scratchpads "intellij")
+    , ((modMask .|. controlMask .|. shiftMask, xK_i), namedScratchpadAction scratchpads "rubymine")
     , ((modMask .|. controlMask .|. shiftMask, xK_g), namedScratchpadAction scratchpads "unequal")
     ]
     ++
@@ -232,7 +236,7 @@ myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
 -- myLayout = ewmhDesktopsLayout $ avoidStruts $ tiled ||| Mirror tiled ||| noBorders Full
 -- myLayout = ewmhDesktopsLayout $ avoidStruts $ (tiled ||| Mirror tiled ||| noBorders Full ||| simpleDeco shrinkText defaultTheme tiled ||| simpleDeco shrinkText defaultTheme (Mirror tiled))
 -- myLayout = avoidStruts $ (tiled ||| Mirror tiled ||| noBorders Full ||| simpleDeco shrinkText defaultTheme tiled ||| simpleDeco shrinkText defaultTheme (Mirror tiled))
-myLayout = gaps [(U, 24)] $ avoidStruts $ (tiled ||| Mirror tiled ||| noBorders Full)
+myLayout = gaps [(U, 24)] $ avoidStruts $ (Mirror tiled ||| tiled ||| noBorders Full)
 -- myLayout = (tiled ||| Mirror tiled ||| noBorders Full ||| simpleDeco shrinkText defaultTheme tiled ||| simpleDeco shrinkText defaultTheme (Mirror tiled))
   where
      -- default tiling algorithm partitions the screen into two panes
@@ -264,12 +268,29 @@ myLayout = gaps [(U, 24)] $ avoidStruts $ (tiled ||| Mirror tiled ||| noBorders 
 -- 'className' and 'resource' are used below.
 --
 myManageHook = manageDocks <+> composeAll
-    [ className =? "MPlayer"           --> doFloat
+    [ floating --> doIgnore
+    , className =? "MPlayer"           --> doFloat
     , className =? "Gimp"              --> doFloat
     , className =? "Unity-2d-panel"    --> doIgnore
     , className =? "Unity-2d-launcher" --> doIgnore
     , resource  =? "desktop_window"    --> doIgnore
     , resource  =? "kdesktop"          --> doIgnore ]
+  where
+    floating = (ask >>= liftX . willFloat)
+                -- panel applets make everything shift around when
+                -- shifted to master.
+                <&&> (liftM (not . isSuffixOf "-panel")) resource
+                <&&> (liftM (not . isSuffixOf "-applet")) resource
+    willFloat w = withDisplay $ \d -> do
+                    sh <- io $ getWMNormalHints d w
+                    let isFixedSize = sh_min_size sh /= Nothing
+                                      && sh_min_size sh == sh_max_size sh
+                    isTransient <- isJust <$> io (getTransientForHint d w)
+                    f <- runQuery isFloat w
+                    return (isFixedSize || isTransient || f)
+
+isFloat :: Query Bool
+isFloat = ask >>= (\w -> liftX $ withWindowSet $ \ws -> return $ M.member w $ W.floating ws)
 
 -- Whether focus follows the mouse pointer.
 myFocusFollowsMouse :: Bool
