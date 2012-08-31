@@ -1,0 +1,2 @@
+git stash create >> ~/.reset_log &&
+git reset --hard HEAD 
