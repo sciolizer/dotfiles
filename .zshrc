@@ -97,3 +97,6 @@ export RPS1=${RETURN_CODE}''${RPS1}
 fpath=($HOME/Downloads/zsh-git-escape-magic $fpath)
 autoload -Uz git-escape-magic
 git-escape-magic
+
+# keep core files
+ulimit -c unlimited
