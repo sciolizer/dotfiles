@@ -100,3 +100,6 @@ git-escape-magic
 
 # keep core files
 ulimit -c unlimited
+
+export GOROOT=$HOME/Downloads/go
+export PATH=$PATH:$GOROOT/bin
