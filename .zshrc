@@ -103,3 +103,8 @@ ulimit -c unlimited
 
 export GOROOT=$HOME/Downloads/go
 export PATH=$PATH:$GOROOT/bin
+
+export PLAN9=$HOME/plan9
+# plan9 comes at the END of the $PATH intentionally
+# (cat, ls, and wc are greatly simplified in plan9)
+export PATH=$PATH:$PLAN9/bin
