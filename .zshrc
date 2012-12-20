@@ -72,6 +72,14 @@ alias rgrep='rgrep --color'
 alias rvm-restart='rvm_reload_flag=1 source '\''$HOME/.rvm/scripts/rvm'\'''
 alias zsnes='aoss zsnes'
 alias man="TERMINFO=~/.terminfo/ LESS=C TERM=mostlike PAGER=less man"
+
+# Link source code in documentation.
+# Note that, by default, this only works with packages that have
+# provided their own hscolour.css.
+# You can make a global hscolour.css by running
+#   cp $PREFIX/share/doc/ghc/html/libraries/ghc-7.4.1/src/hscolour.css ~/.cabal/
+alias ci='cabal install --haddock-hyperlink-source'
+
 export LESSOPEN="|/bin/lesspipe %s"
 
 # make ruby unit tests run faster
