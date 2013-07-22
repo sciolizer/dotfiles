@@ -74,6 +74,11 @@ alias man="TERMINFO=~/.terminfo/ LESS=C TERM=mostlike PAGER=less man"
 alias ai="ssh -A joshball@alrightinvite.corp.gq1.yahoo.com"
 export AI="alrightinvite.corp.gq1.yahoo.com"
 alias lc="ssh joshball@lastcast.corp.gq1.yahoo.com"
+alias grc="git rebase --continue"
+alias grium='git rebase -i upstream/master'
+alias gbs='git bisect start'
+alias gbg='git bisect good'
+alias gbb='git bisect bad'
 
 # Link source code in documentation.
 # Note that, by default, this only works with packages that have
