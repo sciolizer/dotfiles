@@ -60,11 +60,10 @@ alias l='ls -l'
 alias s='sudo'
 alias se='sudo /etc/init.d/memcached'
 alias ser='sudo /etc/init.d/memcached restart'
-source $HOME/bin/engineyard.sh
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias grep='grep --color=auto'
-alias ls='ls --color=auto'
+#alias ls='ls --color=auto'
 alias mednafen='aoss mednafen'
 alias mkdir='mkdir -p'
 alias reset='$HOME/bin/reset'
@@ -72,6 +71,9 @@ alias rgrep='rgrep --color'
 alias rvm-restart='rvm_reload_flag=1 source '\''$HOME/.rvm/scripts/rvm'\'''
 alias zsnes='aoss zsnes'
 alias man="TERMINFO=~/.terminfo/ LESS=C TERM=mostlike PAGER=less man"
+alias ai="ssh joshball@alrightinvite.corp.gq1.yahoo.com"
+export AI="alrightinvite.corp.gq1.yahoo.com"
+alias lc="ssh joshball@lastcast.corp.gq1.yahoo.com"
 
 # Link source code in documentation.
 # Note that, by default, this only works with packages that have
@@ -102,9 +104,9 @@ RETURN_CODE=%(?.."%{${fg[red]}%}"[!]"%{${fg[default]}%}" )
 export RPS1=${RETURN_CODE}''${RPS1}
 
 # git-escape-magic: https://github.com/knu/zsh-git-escape-magic
-fpath=($HOME/Downloads/zsh-git-escape-magic $fpath)
-autoload -Uz git-escape-magic
-git-escape-magic
+#fpath=($HOME/Downloads/zsh-git-escape-magic $fpath)
+#autoload -Uz git-escape-magic
+#git-escape-magic
 
 # keep core files
 ulimit -c unlimited
@@ -116,3 +118,4 @@ export PLAN9=$HOME/plan9
 # plan9 comes at the END of the $PATH intentionally
 # (cat, ls, and wc are greatly simplified in plan9)
 export PATH=$PATH:$PLAN9/bin
+export LESS="-X $LESS"
