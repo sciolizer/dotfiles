@@ -2,7 +2,7 @@
   excludesfile=~/.gitexclude
 [user]
 	name = Joshua Ball
-	email = JoshBBall@gmail.com
+	email = joshball@yahoo-inc.com
 [alias]
   lol = log --graph --decorate --pretty=oneline --abbrev-commit
   lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
