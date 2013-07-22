@@ -71,7 +71,7 @@ alias rgrep='rgrep --color'
 alias rvm-restart='rvm_reload_flag=1 source '\''$HOME/.rvm/scripts/rvm'\'''
 alias zsnes='aoss zsnes'
 alias man="TERMINFO=~/.terminfo/ LESS=C TERM=mostlike PAGER=less man"
-alias ai="ssh joshball@alrightinvite.corp.gq1.yahoo.com"
+alias ai="ssh -A joshball@alrightinvite.corp.gq1.yahoo.com"
 export AI="alrightinvite.corp.gq1.yahoo.com"
 alias lc="ssh joshball@lastcast.corp.gq1.yahoo.com"
 
