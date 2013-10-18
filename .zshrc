@@ -40,6 +40,7 @@ bindkey '\e[3~' delete-char
 bindkey '^R' history-incremental-search-backward
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
 alias g='git'
+alias gpum='git push upstream master'
 alias gs='git status'
 alias gc='git commit'
 alias gca='git commit -a'
@@ -76,9 +77,12 @@ export AI="alrightinvite.corp.gq1.yahoo.com"
 alias lc="ssh joshball@lastcast.corp.gq1.yahoo.com"
 alias grc="git rebase --continue"
 alias grium='git rebase -i upstream/master'
+alias grum='git rebase upstream/master'
 alias gbs='git bisect start'
 alias gbg='git bisect good'
 alias gbb='git bisect bad'
+alias gmf='git merge --ff-only'
+alias grh='git reset HEAD~1'
 
 # Link source code in documentation.
 # Note that, by default, this only works with packages that have
@@ -124,3 +128,6 @@ export PLAN9=$HOME/plan9
 # (cat, ls, and wc are greatly simplified in plan9)
 export PATH=$PATH:$PLAN9/bin
 export LESS="-X $LESS"
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.7.0_21.jdk/Contents/Home
+alias gpo='git push origin'
+alias gfu='git fetch upstream'
