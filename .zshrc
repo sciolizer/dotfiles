@@ -31,7 +31,7 @@ ZSH_THEME="robbyrussell"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 #plugins=(autojump battery bundler command-not-found debian encode64 extract gem git github lol nyan rails3 rake ruby rvm vi-mode)
 # bundler extract gem github rvm
-plugins=(autojump battery command-not-found debian encode64 git lol nyan rails3 rake ruby vi-mode)
+plugins=(autojump battery command-not-found debian encode64 git lol nyan rake ruby vi-mode)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -129,5 +129,9 @@ export PLAN9=$HOME/plan9
 export PATH=$PATH:$PLAN9/bin
 export LESS="-X $LESS"
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.7.0_21.jdk/Contents/Home
-alias gpo='git push origin'
+export PS1="[vagrant] $PS1"
 alias gfu='git fetch upstream'
+alias gpo='git push origin'
+
+alias vz='vi ~/.zshrc'
+alias sz='source ~/.zshrc'
