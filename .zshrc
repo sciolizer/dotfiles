@@ -135,3 +135,5 @@ alias gpo='git push origin'
 
 alias vz='vi ~/.zshrc'
 alias sz='source ~/.zshrc'
+alias gpom='gpo master'
+alias gdh='git diff HEAD'
